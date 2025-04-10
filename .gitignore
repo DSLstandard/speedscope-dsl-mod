@@ -4,3 +4,8 @@ dist
 .idea
 coverage
 .vscode
+
+### Created by https://www.gitignore.io
+### direnv ###
+.direnv
+.envrc
