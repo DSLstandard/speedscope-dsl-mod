@@ -2,6 +2,13 @@
 
 My personalized speedscope.
 
+Changes made:
+- Added `dsl-config.ts` for special configurations.
+- Added `forceOverrideSystemTheme` to set the theme on startup as a band-aid solution.
+- Modified flamechart's zoom logic.
+  - Scroll multipler is reduced.
+  - Holding shift can further reduce scroll multipler.
+
 # 🔬speedscope 
 A fast, interactive web-based viewer for performance profiles. Supports import from a variety of profiles in a variety of languages (JS, Ruby, Python, Go & more). Try it here: https://www.speedscope.app
 
