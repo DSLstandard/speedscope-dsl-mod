@@ -705,18 +705,13 @@ export class FlamechartPanZoomView extends Component<FlamechartPanZoomViewProps,
     }
 
     if (isZoom && this.interactionLock !== 'pan') {
-      let multiplier = 1 + deltaY / 100
+      // shift key on => zoom in/out even less
+      let factor = ev.shiftKey ? 1.05 : 1.12; // values picked according to my preference.
 
-      // On Chrome & Firefox, pinch-to-zoom maps to
-      // WheelEvent + Ctrl Key. We'll accelerate it in
-      // this case, since it feels a bit sluggish otherwise.
-      if (ev.ctrlKey) {
-        multiplier = 1 + deltaY / 40
-      }
+      const zoomIn = deltaY < 0;
+      const multiplier = zoomIn ? 1 / factor : factor;
 
-      multiplier = clamp(multiplier, 0.1, 10.0)
-
-      this.zoom(new Vec2(ev.offsetX, ev.offsetY), multiplier)
+      this.zoom(new Vec2(ev.offsetX, ev.offsetY), multiplier);
     } else if (this.interactionLock !== 'zoom') {
       this.pan(new Vec2(deltaX, deltaY))
     }
