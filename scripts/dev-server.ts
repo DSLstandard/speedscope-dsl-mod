@@ -26,8 +26,10 @@ async function main() {
 
   await ctx.rebuild()
 
+  // Reference: https://esbuild.github.io/api/#serve-arguments
   let {host, port} = await ctx.serve({
     servedir: outdir,
+    host: "localhost", // esbuild defaults to 0.0.0.0. don't.
   })
 
   console.log(`Server is running at http://${host}:${port}`)
