@@ -6,6 +6,7 @@ import {Color} from '../../lib/color'
 import {memoizeByReference} from '../../lib/utils'
 import {darkTheme} from './dark-theme'
 import {lightTheme} from './light-theme'
+import { config } from '../../../dsl-config'
 
 export interface Theme {
   fgPrimaryColor: string
@@ -62,7 +63,14 @@ export function colorSchemeToString(scheme: ColorScheme): string {
 function getTheme(colorScheme: ColorScheme, systemPrefersDarkMode: boolean) {
   switch (colorScheme) {
     case ColorScheme.SYSTEM: {
-      return systemPrefersDarkMode ? darkTheme : lightTheme
+      switch (config.forceOverrideSystemTheme) {
+        case "Light":
+          return lightTheme;
+        case "Dark":
+          return darkTheme;
+        default:
+          return systemPrefersDarkMode ? darkTheme : lightTheme;
+      }
     }
     case ColorScheme.DARK: {
       return darkTheme
